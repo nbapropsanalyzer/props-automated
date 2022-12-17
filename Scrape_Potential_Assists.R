@@ -8,15 +8,24 @@ library(RSelenium)
 library(dplyr)
 library(rvest)
 
+system("docker pull selenium/standalone-chrome", wait=TRUE)
+Sys.sleep(5)
+system("docker run -d -p 4445:4444 selenium/standalone-chrome", wait=TRUE)
+Sys.sleep(5)
+
 # Set up the final dataset
 final_table <- data.frame(matrix(ncol = 16, nrow = 0))
 colnames(final_table) <- c("PLAYER", "TEAM", "GP", "W", "L", "MIN", "PassesMade", "PassesReceived", "AST", "SecondaryAST", "PotentialAST", "AST PTSCreated", "AST PTSCreated", "ASTAdj", "AST ToPass%", "AST ToPass% Adj")
 
 # Open Selenium in headless mode
-port <- 4568L
-driver <- rsDriver(browser = "firefox", check = FALSE, verbose = FALSE, port = port,
-                   extraCapabilities = list("moz:firefoxOptions" = list(args = list('--headless'))))
-remDr <- driver[["client"]]
+# port <- 4568L
+# driver <- rsDriver(browser = "firefox", check = FALSE, verbose = FALSE, port = port,
+#                    extraCapabilities = list("moz:firefoxOptions" = list(args = list('--headless'))))
+# remDr <- driver[["client"]]
+
+# Trying according to https://github.com/jtrecenti/actionSelenium/blob/4a18ace70d3cdedf88b4b1d89b531e8820b88abf/script.R
+remDr <- remoteDriver("localhost", 4445L, "chrome")
+remDr$open()
 
 # Navigate to the page to scrape
 remDr$navigate('https://www.nba.com/stats/players/passing?CF=POTENTIAL_AST*G*0&dir=D&sort=POTENTIAL_AST')
@@ -46,8 +55,8 @@ while(i < 5){
 
 # Close the Selenium browser and stop the server
 remDr$close()
-driver$server$stop()
-driver$server$process
+# driver$server$stop()
+# driver$server$process
 
 # Get today's date & month
 Sys.setenv(TZ = "EST")
