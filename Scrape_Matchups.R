@@ -48,6 +48,7 @@ driver$server$stop()
 driver$server$process
 
 # Get today's date & month
+Sys.setenv(TZ = "EST")
 today <- Sys.Date()
 
 # Save the dataframe of potential assists to the right location
