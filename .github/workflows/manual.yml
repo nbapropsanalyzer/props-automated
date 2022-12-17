@@ -18,6 +18,8 @@ jobs:
     # Set-up R
     - name: Install packages
       run: |
+        R -e 'install.packages("wdman")'
+        R -e 'install.packages("httr")'
         R -e 'install.packages("RSelenium")'
         R -e 'install.packages("dplyr")'
         R -e 'install.packages("stringr")'
