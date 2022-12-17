@@ -18,9 +18,7 @@ jobs:
     # Set-up R
     - name: Install packages
       run: |
-        R -e 'install.packages("curl")'
-        R -e 'install.packages("wdman")'
-        R -e 'install.packages("httr")'
+        sudo apt-get install -y libcurl4-openssl-dev
         R -e 'install.packages("RSelenium")'
         R -e 'install.packages("dplyr")'
         R -e 'install.packages("stringr")'
