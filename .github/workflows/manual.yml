@@ -32,7 +32,7 @@ jobs:
       run: Rscript Scrape_Potential_Assists.R
       
     # Run R script #2
-    - name: Scrape_Potential_Assists
+    - name: Scrape_Matchups
       run: Rscript Scrape_Matchups.R
                
   run_final_table:
@@ -43,5 +43,5 @@ jobs:
       uses: actions/checkout@v2
 
     # Run R script #3
-    - name: Scrape_Potential_Assists
+    - name: Scrape_Box_Scores
       run: Scrape_Box_Scores.R
