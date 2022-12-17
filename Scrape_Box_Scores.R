@@ -19,6 +19,7 @@ colnames(home_hoopR_team_abbreviations) <- c("HomeTeam", "Home")
 
 ## Find which games are being played today from BR
 # Find today's date & month
+Sys.setenv(TZ = "EST")
 today <- Sys.Date()
 today_month <- tolower(months(today))
 today_year <- 2023
