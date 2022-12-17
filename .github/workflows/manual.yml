@@ -14,12 +14,15 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: r-lib/actions/setup-r@v2
+    - uses: r-lib/actions/setup-r-dependencies@v2
+      with:
+        packages: |
+          any::RSelenium
 
     # Set-up R
     - name: Install packages
       run: |
-        sudo apt-get install -y libcurl4-openssl-dev
-        R -e 'install.packages("RSelenium")'
+        R -e 'install.packages("RSelenium", dependencies=TRUE)'
         R -e 'install.packages("dplyr")'
         R -e 'install.packages("stringr")'
         R -e 'install.packages("rvest")'
